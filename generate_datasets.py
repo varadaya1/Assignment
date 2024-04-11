@@ -27,28 +27,35 @@ class LogisticRegression(nn.Module):
         out = self.sigmoid(out)
         return out
 
-# Initialize model, loss function, and optimizer
-model = LogisticRegression(input_size=X.shape[1])
-criterion = nn.BCELoss()
-optimizer = optim.SGD(model.parameters(), lr=0.01)
+def test_logistic_regression():
+    # Initialize model, loss function, and optimizer
+    model = LogisticRegression(input_size=X.shape[1])
+    criterion = nn.BCELoss()
+    optimizer = optim.SGD(model.parameters(), lr=0.01)
 
-# Training loop
-num_epochs = 1000
-for epoch in range(num_epochs):
-    # Forward pass
-    outputs = model(X_tensor)
-    loss = criterion(outputs.squeeze(), y_tensor)
+    # Training loop
+    num_epochs = 1000
+    for epoch in range(num_epochs):
+        # Forward pass
+        outputs = model(X_tensor)
+        loss = criterion(outputs.squeeze(), y_tensor)
 
-    # Backward and optimize
-    optimizer.zero_grad()
-    loss.backward()
-    optimizer.step()
+        # Backward and optimize
+        optimizer.zero_grad()
+        loss.backward()
+        optimizer.step()
 
-    if (epoch+1) % 100 == 0:
-        print(f'Epoch [{epoch+1}/{num_epochs}], Loss: {loss.item():.4f}')
+        if (epoch+1) % 100 == 0:
+            print(f'Epoch [{epoch+1}/{num_epochs}], Loss: {loss.item():.4f}')
 
-# Evaluate model
-with torch.no_grad():
-    predicted = model(X_tensor).squeeze().round().numpy()
-    accuracy = (predicted == y).mean()
-    print(f'Accuracy: {accuracy:.4f}')
+    # Evaluate model
+    with torch.no_grad():
+        predicted = model(X_tensor).squeeze().round().numpy()
+        accuracy = (predicted == y).mean()
+        print(f'Accuracy: {accuracy:.4f}')
+
+    # Assertions
+    assert loss.item() < 0.1  # Just a sample assertion
+
+if __name__ == "__main__":
+    test_logistic_regression()

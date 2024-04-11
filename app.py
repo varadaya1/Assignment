@@ -8,17 +8,12 @@ def display_image():
 def visualize_classifier():
     st.write("Insert code to visualize classifier here")
 
-def main():
-    st.title("Linear Dataset Visualization")
+def test_display_image():
+    # Assuming you have a fixture for mocking st.image
+    # Mock st.image and assert it's called with the correct arguments
+    pass
 
-    # Display dataset image
-    st.subheader("Dataset Image")
-    display_image()
-
-    # Display classifier visualization
-    st.subheader("Classifier Visualization")
-    visualize_classifier()
-
-if __name__ == "__main__":
-    main()
-
+def test_visualize_classifier():
+    # Assuming you have a fixture for mocking st.write
+    # Mock st.write and assert it's called with the correct arguments
+    pass

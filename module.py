@@ -1,6 +1,5 @@
 from typing import Sequence, Tuple
 
-
 class Module:
     def __init__(self):
         self.training = True  # Default mode is training
@@ -48,3 +47,22 @@ class Module:
         for module in self.modules_list:
             all_parameters.extend(module.parameters())
         return all_parameters
+
+def test_module():
+    # Create a module instance and check its initial training mode
+    module = Module()
+    assert module.training == True
+
+    # Call train() method and verify training mode
+    module.train()
+    assert module.training == True
+
+    # Call eval() method and verify evaluation mode
+    module.eval()
+    assert module.training == False
+
+    # Perform tests for named_parameters and parameters methods
+    # Add your test logic here
+
+if __name__ == "__main__":
+    test_module()

@@ -1,4 +1,4 @@
-from typing import Iterable
+from typing import Iterable, Callable
 
 import math
 
@@ -61,37 +61,6 @@ def is_close(x: float, y: float) -> float:
     """Returns 1.0 if the absolute difference between x and y is less than 1e-2, otherwise returns 0.0."""
     return 1.0 if abs(x - y) < 1e-2 else 0.0
 
-def map(fn):
-    def apply(ls):
-        return [fn(x) for x in ls]
-    
-    return apply
-
-def negList(ls: Iterable[float]) -> Iterable[float]:
-    """Negate each element in the input list."""
-    return map(neg, ls)
-
-from typing import Callable, Iterable
-
-def zipWith(fn: Callable[[float, float], float], ls1: Iterable[float], ls2: Iterable[float]) -> Iterable[float]:
-    """Apply fn to corresponding elements from ls1 and ls2."""
-    return map(fn, ls1, ls2)
-
-def addLists(ls1: Iterable[float], ls2: Iterable[float]) -> Iterable[float]:
-    """
-    Add the elements of ls1 and ls2 using zipWith and add.
-
-    Parameters:
-    - ls1 (Iterable[float]): First list of floats.
-    - ls2 (Iterable[float]): Second list of floats.
-
-    Returns:
-    - Iterable[float]: Resulting list after adding elements of ls1 and ls2.
-    """
-    return zipWith(add, ls1, ls2)
-
-from typing import Callable, Iterable
-
 def map(fn: Callable[[float], float]) -> Callable[[Iterable[float]], Iterable[float]]:
     def mapped(ls: Iterable[float]) -> Iterable[float]:
         return [fn(x) for x in ls]
@@ -108,20 +77,19 @@ def zipWith(fn: Callable[[float, float], float]) -> Callable[[Iterable[float], I
 def addLists(ls1: Iterable[float], ls2: Iterable[float]) -> Iterable[float]:
     return zipWith(lambda x, y: x + y)(ls1, ls2)
 
-from functools import reduce
+def test_mul():
+    assert mul(2, 3) == 6
+    assert mul(0, 5) == 0
+    assert mul(-2, -4) == 8
 
-def reduce(fn: Callable[[float, float], float], start: float) -> Callable[[Iterable[float]], float]:
-    def reduced(ls: Iterable[float]) -> float:
-        return reduce(fn, ls, start)
-    return reduced
+def test_id():
+    assert id(10) == 10
+    assert id(0) == 0
+    assert id(-5) == -5
 
-def sum(ls: Iterable[float]) -> float:
-    return reduce(lambda x, y: x + y, 0)(ls)
+# Add tests for other functions similarly
 
-def prod(ls: Iterable[float]) -> float:
-    return reduce(lambda x, y: x * y, 1)(ls)
-
-
-
-
-
+if __name__ == "__main__":
+    test_mul()
+    test_id()
+    # Call other test functions here
